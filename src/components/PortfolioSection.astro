@@ -12,21 +12,21 @@ const projects = [
         images: {
             before: {
                 src: before1Image,
-                alt: "Unfinished, under renovation with construction tools, exposed wiring, and partially installed marble-patterned tiles.",
+                alt: "Active residential construction site seeking qualified trade contractors.",
             },
             after: {
                 src: after1Image,
-                alt: "A modern, open-concept living space with a wooden table, chairs, and a metal staircase. The room is lit by ceiling lights and natural sunlight from large windows.",
+                alt: "Completed architectural build coordinated through verified subcontractors.",
             },
         },
         info: {
             challenge: {
-                title: "Client's Challenge",
-                text: "We wanted to transform our unfinished space into a modern, functional home with an open-concept design that maximizes space, brings in plenty of natural light, and fits seamlessly into our daily lives.",
+                title: "Active Project Listings",
+                text: "Browse residential and commercial projects submitted by verified builders looking for qualified trades. Review location, trade needs, scope of work, and expected timelines before you apply.",
             },
             result: {
-                title: "Result",
-                text: "Our home now feels more open and airy. The transformation has expanded our living area, making every room feel larger and brighter. With a design that prioritizes natural light, our home is now perfectly set up for everyday living and family moments.",
+                title: "Residential Builder Seeking Roofing Contractor",
+                text: "Austin, TX • Scope: Architectural shingles, flashing & underlayment. Direct applications connecting project managers to licensed subcontracting crews with zero bidding fees.",
             },
         },
     },
@@ -35,31 +35,31 @@ const projects = [
         images: {
             before: {
                 src: before2Image,
-                alt: "An older kitchen with white cabinets, beige tile flooring, and white appliances.",
+                alt: "Commercial construction interior before electrical rough-in.",
             },
             after: {
                 src: after2Image,
-                alt: "A modern kitchen with dark wood cabinets, stainless steel appliances, and a stone backsplash.",
+                alt: "Finished modern commercial space with installed electrical systems.",
             },
         },
         info: {
             challenge: {
-                title: "Client's Challenge",
-                text: "Our kitchen felt outdated. The all-white design was plain, and the layout wasn't as functional as it could be. We wanted a space with better lighting that made cooking more enjoyable.",
+                title: "Direct Applications & Relevant Opportunities",
+                text: "Submit your interest directly when an opportunity fits your crews. Focus on projects aligned with your trade, capacity, and service area without paying for low-quality lead lists.",
             },
             result: {
-                title: "Result",
-                text: "Now, our kitchen feels completely renewed. The improved lighting makes the space brighter and more welcoming, while the new wood-style elements fit perfectly with our vision.",
+                title: "Commercial Builder Seeking Electrical Contractor",
+                text: "Dallas, TX • Scope: 15,000 sq ft commercial office rough-in, 800A service, and lighting. Builders review applicants and contact qualified subcontractors directly.",
             },
         },
     },
 ];
 ---
 
-<section id="portfolio" class="portfolio">
-    <div class="section-container">
-        <span class="section-tag">PORTFOLIO</span>
-        <h2 class="section-title">See the transformation.</h2>
+<section id="projects" class="portfolio">
+    <div id="opportunities" class="section-container">
+        <span class="section-tag">OPPORTUNITIES & PROJECTS</span>
+        <h2 class="section-title">Spend less time chasing work and more time reviewing projects.</h2>
         <BaseSwiper sliderName="portfolio" beforeAfter>
             {
                 projects.map((project) => (
@@ -115,7 +115,7 @@ const projects = [
     .swiper-slide {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: var(--px-64);
+        gap: var(--px-48);
         opacity: 0;
         transform: scale(0.75);
         transition: all var(--transition-long);
@@ -134,7 +134,7 @@ const projects = [
 
     .project-image {
         position: relative;
-        min-height: 25rem;
+        min-height: 22rem;
         overflow: hidden;
     }
 
@@ -157,13 +157,13 @@ const projects = [
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--px-32);
+        gap: var(--px-24);
     }
 
     .info-section {
         display: flex;
         flex-direction: column;
-        gap: var(--px-16);
+        gap: var(--px-12);
     }
 
     .info-title {

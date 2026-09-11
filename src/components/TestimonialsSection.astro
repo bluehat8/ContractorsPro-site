@@ -9,30 +9,30 @@ const testimonials = [
         id: 1,
         type: "image",
         client: {
-            name: "Sarah Johnson",
-            location: "Beverly Hills, California",
+            name: "David Miller",
+            location: "Austin, Texas • Custom Home Builder",
             image: sarahJohnsonImage,
         },
         content:
-            "Working with One Space Away transformed not just our home, but how we live in it. Their attention to detail and understanding of our needs was exceptional.",
+            "Finding reliable, licensed subcontractors used to take weeks of cold calling. With ContractorPro, we reviewed active local trades, matched with a fantastic framing crew, and stayed on schedule.",
     },
     {
         id: 2,
         type: "image",
         client: {
-            name: "Emma Lewis",
-            location: "Palm Beach, Florida",
+            name: "Carlos Ramirez",
+            location: "Dallas, Texas • Commercial Electrical Contractor",
             image: emmaImage,
         },
         content:
-            "I had a general idea of what I wanted but wasn't sure how to bring it all together. They helped refine my vision and created a space that feels effortless and perfectly me.",
+            "Instead of paying upfront for recycled leads where ten competitors bid against each other, ContractorPro connects us directly to builders with real projects ready to award.",
     },
     {
         id: 3,
         type: "video",
         client: {
-            name: "Charlotte Bennett",
-            location: "Austin, Texas",
+            name: "Marcus Vance",
+            location: "Houston, Texas • Commercial General Contractor",
         },
         video: {
             src: "https://res.cloudinary.com/dellp9a4z/video/upload/v1774625626/charlotte_iy65kg.webm",
@@ -45,7 +45,7 @@ const testimonials = [
 <section id="testimonials" class="testimonials">
     <div class="section-container">
         <span class="section-tag">TESTIMONIALS</span>
-        <h2 class="section-title">Real homes, real stories.</h2>
+        <h2 class="section-title">Built by the trade, for the trade.</h2>
 
         <BaseSwiper sliderName="testimonials" navigation={false}>
             {
@@ -162,7 +162,7 @@ const testimonials = [
 
     .testimonial-card:has(.testimonial-video-wrapper) {
         aspect-ratio: 2/3;
-        max-height: 34.375rem;
+        max-height: 30rem;
     }
 
     .testimonial-card:has(.testimonial-video:focus-visible) {
@@ -173,12 +173,12 @@ const testimonials = [
         display: flex;
         align-items: center;
         gap: var(--px-16);
-        margin-block: var(--px-32) var(--px-24);
+        margin-block: var(--px-20) var(--px-16);
     }
 
     .testimonial-image {
-        width: var(--px-80);
-        height: var(--px-80);
+        width: 4.25rem;
+        height: 4.25rem;
         overflow: hidden;
         border-radius: 50%;
         flex-shrink: 0;
@@ -230,7 +230,7 @@ const testimonials = [
     }
 
     .client-name {
-        font-size: var(--text-xl);
+        font-size: 1.125rem;
         font-weight: 600;
         font-style: normal;
     }

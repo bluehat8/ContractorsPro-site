@@ -13,7 +13,7 @@ body {
 }
 
 section {
-  padding: var(--px-96) var(--px-64);
+  padding: clamp(3.5rem, 5vw, 4.5rem) var(--px-64);
 }
 
 p {
@@ -29,25 +29,26 @@ p {
 
 .section-tag {
   display: inline-block;
-  margin-bottom: var(--px-24);
-  font-size: var(--text-sm);
+  margin-bottom: var(--px-14);
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
   font-weight: 500;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.08em;
 }
 
 .section-title {
-  margin-bottom: var(--px-64);
-  font-size: clamp(1.75rem, 2.5vw + var(--text-lg), 3.25rem);
+  margin-bottom: var(--px-44);
+  font-size: clamp(1.625rem, 2.2vw + 0.4rem, 2.625rem);
   font-weight: 500;
   line-height: 1.2;
+  letter-spacing: -0.015em;
   color: var(--color-text-primary);
 }
 
 .section-subtitle {
-  font-size: var(--text-xl);
+  font-size: clamp(1.063rem, 1.3vw, 1.188rem);
   font-weight: 600;
-  margin-bottom: var(--px-16);
+  margin-bottom: var(--px-12);
 }
 
 .no-scroll {

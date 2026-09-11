@@ -8,8 +8,8 @@ const currentYear = new Date().getFullYear();
 <footer class="main-footer">
     <div class="section-container footer footer-primary">
         <div class="footer-brand">
-            <a href="/" class="headline logo" aria-label="One Space Away home">
-                One Space Away
+            <a href="/" class="logo-link" aria-label="ContractorPro home">
+                <img src="/logo.png" alt="ContractorPro" class="footer-logo" />
             </a>
             <p class="site-description">{SITE.DESCRIPTION}</p>
 
@@ -27,13 +27,19 @@ const currentYear = new Date().getFullYear();
 
         <nav class="footer-navigation" aria-label="Footer navigation">
             <div class="footer-nav-section">
-                <h2 class="headline footer-heading">Company</h2>
+                <h2 class="headline footer-heading">Platform</h2>
                 <ul class="footer-nav-list">
                     <li>
                         <a href="#hero" class="footer-link">Home</a>
                     </li>
                     <li>
-                        <a href="#about" class="footer-link">About</a>
+                        <a href="#opportunities" class="footer-link">Opportunities</a>
+                    </li>
+                    <li>
+                        <a href="#projects" class="footer-link">Projects</a>
+                    </li>
+                    <li>
+                        <a href="#about" class="footer-link">Why Join</a>
                     </li>
                     <li>
                         <a href="#how-it-works" class="footer-link"
@@ -41,16 +47,16 @@ const currentYear = new Date().getFullYear();
                         >
                     </li>
                     <li>
-                        <a href="#portfolio" class="footer-link">Portfolio</a>
+                        <a href="#faq" class="footer-link">FAQ</a>
                     </li>
                     <li>
-                        <a href="#contact" class="footer-link">Contact</a>
+                        <a href="#contact" class="footer-link">Beta Access</a>
                     </li>
                 </ul>
             </div>
 
             <div class="footer-nav-section">
-                <h2 class="headline footer-heading">Social Media</h2>
+                <h2 class="headline footer-heading">Connect</h2>
                 <ul class="footer-nav-list social-links-list">
                     {
                         SOCIALS.map((social) => (
@@ -76,7 +82,7 @@ const currentYear = new Date().getFullYear();
             </div>
 
             <div class="footer-nav-section">
-                <h2 class="headline footer-heading">Legal & Press</h2>
+                <h2 class="headline footer-heading">Legal</h2>
                 <ul class="footer-nav-list">
                     <li>
                         <a href="legal/privacy" class="footer-link"
@@ -100,10 +106,10 @@ const currentYear = new Date().getFullYear();
 
     <div class="footer footer-secondary">
         <div class="copyright">
-            <p>&copy; {SITE.COMPANY_NAME} {currentYear}.</p>
+            <p>&copy; {currentYear} {SITE.COMPANY_NAME}. All rights reserved.</p>
         </div>
         <div class="location">
-            <p>Based in Beverly Hills, California.</p>
+            <p>Connecting verified builders and subcontractors nationwide.</p>
         </div>
     </div>
 </footer>
@@ -119,7 +125,7 @@ const currentYear = new Date().getFullYear();
 
     .main-footer {
         background-color: var(--color-background);
-        padding-block: var(--px-112) var(--px-28);
+        padding-block: var(--px-80) var(--px-28);
         padding-inline: var(--px-64);
         color: var(--color-text-dark);
         font-size: var(--text-sm);
@@ -139,7 +145,7 @@ const currentYear = new Date().getFullYear();
     }
 
     .footer-primary {
-        margin-bottom: var(--px-112);
+        margin-bottom: var(--px-64);
     }
 
     .logo {
@@ -149,8 +155,16 @@ const currentYear = new Date().getFullYear();
         font-weight: 700;
     }
 
+    .footer-logo {
+        height: 38px;
+        width: auto;
+        object-fit: contain;
+        margin-bottom: var(--px-20);
+        display: block;
+    }
+
     .site-description {
-        margin-bottom: var(--px-32);
+        margin-bottom: var(--px-24);
     }
 
     .footer-navigation {
@@ -159,7 +173,7 @@ const currentYear = new Date().getFullYear();
         justify-content: space-between;
         width: 100%;
         margin-left: 16%;
-        gap: var(--px-96);
+        gap: var(--px-64);
     }
 
     .footer-heading {

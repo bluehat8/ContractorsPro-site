@@ -2,63 +2,39 @@
 const faqItems = [
   {
     id: 1,
-    question: 'What services do you offer?',
+    question: "Is ContractorPro really free for founding subcontractors?",
     answer:
-      'We provide end-to-end interior design solutions — from the initial consultation and custom design plans (including mood boards and 3D renderings) to complete transformations with expert craftsmanship.',
+      "Yes! During our beta launch, founding subcontractors get 100% free access to the platform. There are zero subscription fees, zero bidding platform fees, and no commissions taken from your project earnings.",
   },
   {
     id: 2,
-    question: 'How does the consultation process work?',
+    question: "What types of construction projects are posted?",
     answer:
-      "It all starts with a friendly conversation. We sit down (or hop on a video call) to chat about your style, how you use your space, and what makes you feel at home. Our goal is to really get to know you so we can create a design that's totally you.",
+      "Our network features both residential and commercial opportunities submitted by verified builders — including single-family home developments, multi-family construction, tenant improvements, and commercial build-outs.",
   },
   {
     id: 3,
-    question: 'Can I see what my design will look like before the work begins?',
+    question: "How do builders contact my company after I apply?",
     answer:
-      "Absolutely! Once we've talked things through, we whip up a design plan complete with mood boards, layouts, and 3D renderings. This way, you can see exactly how your ideas come together before we break out the tools.",
+      "When you express interest in an active project, the builder reviews your company credentials, trade specializations, and service area. If you are a match, they reach out directly via phone or email to discuss details and contracts.",
   },
   {
     id: 4,
-    question: "What's the typical timeline for a project?",
+    question: "What trades and specialties can join the beta?",
     answer:
-      "Every project is different. After we nail down your design plan, we'll work together to set a realistic timeline that fits your needs. We keep you in the loop from start to finish, making sure the process is smooth and stress-free.",
+      "We welcome all qualified construction trades: roofing, electrical, HVAC, concrete, drywall, framing, painting, plumbing, remodeling, carpentry, flooring, tile, and more.",
   },
   {
     id: 5,
-    question: 'How do you work with different budgets?',
+    question: "What qualifications are required to join?",
     answer:
-      "We believe great design should work for everyone. Early on, we'll talk about your budget and find creative, cost-effective ways to bring your vision to life — without skimping on quality or style.",
+      "We prioritize licensed and insured trade contractors (General Liability Insurance and active trade licenses where mandated by state and local regulations) with reliable crews.",
   },
   {
     id: 6,
-    question: 'Can I incorporate my current furniture or design pieces?',
+    question: "How does ContractorPro compare to traditional lead services?",
     answer:
-      "For sure! We love adding personal touches that make your space uniquely yours. Whether you're bringing in favorite pieces or working with your existing layout, we'll blend everything together seamlessly.",
-  },
-  {
-    id: 7,
-    question: 'How do you make sure my personal style comes through?',
-    answer:
-      'Your style is our blueprint. We start by listening closely to your ideas and preferences, then tailor every detail — from the materials we choose to the final layout — to make sure your personality shines through in every corner of your home.',
-  },
-  {
-    id: 8,
-    question: 'What if I have new ideas or changes during the project?',
-    answer:
-      'No problem at all. We get that plans can evolve. Our process is super flexible, so we can tweak things as we go along to make sure your space always matches your vision.',
-  },
-  {
-    id: 9,
-    question: 'Do you offer virtual consultations?',
-    answer:
-      "Yep! Whether you're down the street or across the country, we offer both in-person and virtual consultations. It's all about making the process as convenient as possible for you.",
-  },
-  {
-    id: 10,
-    question: 'How do I get started?',
-    answer:
-      "It's simple — just give us a call or shoot us an email. We'll set up your initial consultation, get to know your ideas, and kick off the journey to creating a space that feels just right.",
+      "Traditional lead services charge expensive fees for recycled leads that are sold to dozens of competitors at once. ContractorPro connects you directly to builders who have real, scheduled projects looking for reliable subcontracting crews.",
   },
 ];
 ---
@@ -105,7 +81,7 @@ const faqItems = [
   .faq-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--px-64);
+    gap: var(--px-48);
     align-items: start;
   }
 
@@ -130,7 +106,7 @@ const faqItems = [
     justify-content: space-between;
     align-items: center;
     gap: var(--px-16);
-    padding: var(--px-20) 0;
+    padding: var(--px-16) 0;
     background: none;
     border: none;
     cursor: pointer;
@@ -139,7 +115,7 @@ const faqItems = [
   }
 
   .button-text {
-    font-size: var(--text-xl);
+    font-size: clamp(1rem, 1.15vw, 1.125rem);
     font-weight: 400;
     transition: all var(--transition-long);
   }

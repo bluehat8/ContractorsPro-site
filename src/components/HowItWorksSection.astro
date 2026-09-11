@@ -7,32 +7,32 @@ import transformImage from "/src/assets/images/transform.jpg";
 const processSteps = [
     {
         id: 1,
-        title: "Connect",
+        title: "1. Join the Network",
         description:
-            "Begin with a consultation where you share your style, needs, and vision. We listen, ask the right questions, and get to know what truly makes a space feel like home for you.",
+            "Tell us what trades you cover and where your crews can work. Founding subcontractors receive early access to residential and commercial construction opportunities.",
         image: {
             src: consultationImage,
-            alt: "People talking about an interior design project",
+            alt: "Subcontractor registering specialties in ContractorPro",
         },
     },
     {
         id: 2,
-        title: "Design",
+        title: "2. Browse & Review Projects",
         description:
-            "Using your input, we make a personalized design plan with mood boards, 3D renderings, and detailed layouts — so you can visualize your space before the transformation begins.",
+            "Review residential and commercial construction opportunities that match your expertise. Check the trade needs, scope of work, budget indications, and expected timelines before you apply.",
         image: {
             src: designImage,
-            alt: "Detailed layouts of entry and bath",
+            alt: "Reviewing active construction project details and blueprints",
         },
     },
     {
         id: 3,
-        title: "Transform",
+        title: "3. Connect with Builders Directly",
         description:
-            "Watch your space come to life as our team brings the design to reality with expert craftsmanship, thoughtful execution, and a keen eye for detail.",
+            "Submit your interest directly when an opportunity fits your business. Builders and homeowners review qualified subcontractors and reach out to discuss bids and contracts.",
         image: {
             src: transformImage,
-            alt: "Expert measuring distance",
+            alt: "Subcontractor and general contractor working on site",
         },
     },
 ];
@@ -42,7 +42,7 @@ const processSteps = [
     <div class="section-container">
         <div class="process-content">
             <span class="section-tag">HOW IT WORKS</span>
-            <h2 class="section-title">How we bring your space to life.</h2>
+            <h2 class="section-title">A simple path from joining the network to connecting with builders.</h2>
             <div class="process-steps">
                 {
                     processSteps.map((step) => (
@@ -76,13 +76,13 @@ const processSteps = [
     .process-steps {
         display: flex;
         flex-direction: column;
-        gap: var(--px-64);
+        gap: var(--px-44);
     }
 
     .process-step {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: var(--px-64);
+        gap: var(--px-44);
         align-items: center;
     }
 
@@ -95,7 +95,7 @@ const processSteps = [
     }
 
     .process-step-title {
-        font-size: 1.313rem;
+        font-size: 1.188rem;
     }
 
     .process-step-description {
@@ -105,7 +105,7 @@ const processSteps = [
     .process-step-image-wrapper {
         width: 100%;
         height: 100%;
-        max-height: 20.625rem;
+        max-height: 18.5rem;
         overflow: hidden;
     }
 
