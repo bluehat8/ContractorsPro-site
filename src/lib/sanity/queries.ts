@@ -62,8 +62,10 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   heroVideoPoster,
   howItWorksTag,
   howItWorksTitle,
+  appLoginUrl,
   contactEmail,
   contactPhone
 }`;
+
 
 

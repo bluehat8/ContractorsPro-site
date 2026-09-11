@@ -63,8 +63,10 @@ export interface SanitySiteSettings {
   heroVideoPoster?: any;
   howItWorksTag?: string;
   howItWorksTitle?: string;
+  appLoginUrl?: string;
   contactEmail?: string;
   contactPhone?: string;
 }
+
 
 

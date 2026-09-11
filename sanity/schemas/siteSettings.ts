@@ -106,6 +106,13 @@ export default {
       initialValue: 'A simple path from joining the network to connecting with builders.',
     },
     {
+      name: 'appLoginUrl',
+      title: 'URL de Login de la App',
+      type: 'url',
+      description: 'Enlace del botón "Log In" del header (ej: https://www.app.contractorspro.us/)',
+      initialValue: 'https://www.app.contractorspro.us/',
+    },
+    {
       name: 'contactEmail',
       title: 'Support Email',
       type: 'string',
