@@ -1,7 +1,12 @@
 ---
 import { SITE, SOCIALS } from "@consts";
 import socialIcons from "@assets/socialIcons";
+import { getSiteSettings } from "../lib/sanity/api";
 
+const settings = await getSiteSettings();
+const siteDescription = settings?.siteDescription || SITE.DESCRIPTION;
+const contactEmail = settings?.contactEmail || SITE.EMAIL;
+const contactPhone = settings?.contactPhone || SITE.TELEPHONE;
 const currentYear = new Date().getFullYear();
 ---
 
@@ -11,16 +16,16 @@ const currentYear = new Date().getFullYear();
             <a href="/" class="logo-link" aria-label="ContractorPro home">
                 <img src="/logo.png" alt="ContractorPro" class="footer-logo" />
             </a>
-            <p class="site-description">{SITE.DESCRIPTION}</p>
+            <p class="site-description">{siteDescription}</p>
 
             <address class="footer-nav-list contact-info">
                 <p class="phone">
                     <span class="label">T.</span>
-                    <a href=`tel:${SITE.TELEPHONE}`>{SITE.TELEPHONE}</a>
+                    <a href={`tel:${contactPhone}`}>{contactPhone}</a>
                 </p>
                 <p class="email">
                     <span class="label">E.</span>
-                    <a href=`mailto:${SITE.EMAIL}`>{SITE.EMAIL}</a>
+                    <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
                 </p>
             </address>
         </div>
