@@ -1,0 +1,105 @@
+export default {
+  name: 'siteSettings',
+  title: 'Site Settings & Hero Copy',
+  type: 'document',
+  fieldsets: [
+    {
+      name: 'heroCopy',
+      title: '1. Textos del Hero',
+      options: { collapsible: true, collapsed: false },
+    },
+    {
+      name: 'heroMedia',
+      title: '2. Video del Hero (Subir Archivo o URL)',
+      options: { collapsible: true, collapsed: false },
+    },
+    {
+      name: 'contactInfo',
+      title: '3. Información de Contacto',
+      options: { collapsible: true, collapsed: false },
+    },
+  ],
+  fields: [
+    {
+      name: 'siteTitle',
+      title: 'Site Title',
+      type: 'string',
+      initialValue: 'ContractorPro US',
+    },
+    {
+      name: 'siteDescription',
+      title: 'Site Description',
+      type: 'text',
+      rows: 2,
+    },
+    {
+      name: 'heroTag',
+      title: 'Hero Section Tag',
+      type: 'string',
+      fieldset: 'heroCopy',
+      initialValue: 'SUBCONTRACTOR PROJECT ACCESS',
+    },
+    {
+      name: 'heroTitle',
+      title: 'Hero Main Headline',
+      type: 'string',
+      fieldset: 'heroCopy',
+      initialValue: 'Connect With Construction Projects Looking for Subcontractors.',
+    },
+    {
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'text',
+      fieldset: 'heroCopy',
+      rows: 3,
+    },
+    {
+      name: 'heroNotice',
+      title: 'Hero Beta Notice',
+      type: 'string',
+      fieldset: 'heroCopy',
+      initialValue: 'Founding contractors get free access while we launch the beta.',
+    },
+    {
+      name: 'heroVideoFile',
+      title: 'Subir Archivo de Video (.mp4 / .webm)',
+      type: 'file',
+      fieldset: 'heroMedia',
+      description: 'Arrastra y suelta tu archivo de video aquí (MP4, WebM, etc.). Si subes un archivo, tendrá prioridad sobre la URL.',
+      options: {
+        accept: 'video/*',
+      },
+    },
+    {
+      name: 'heroVideoUrl',
+      title: 'O Enlace URL del Video (Cloudinary, Vimeo, S3, etc.)',
+      type: 'url',
+      fieldset: 'heroMedia',
+      description: 'Si prefieres usar un enlace externo directo, puedes ingresarlo aquí.',
+      initialValue: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm',
+    },
+    {
+      name: 'heroVideoPoster',
+      title: 'Hero Video Poster / Portada',
+      type: 'image',
+      fieldset: 'heroMedia',
+      description: 'Imagen de portada que se muestra mientras el video comienza a reproducirse.',
+      options: { hotspot: true },
+    },
+    {
+      name: 'contactEmail',
+      title: 'Support Email',
+      type: 'string',
+      fieldset: 'contactInfo',
+      initialValue: 'contact@contractorspro.us',
+    },
+    {
+      name: 'contactPhone',
+      title: 'Support Telephone',
+      type: 'string',
+      fieldset: 'contactInfo',
+      initialValue: '(888) 555-0199',
+    },
+  ],
+};
+

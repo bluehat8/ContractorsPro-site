@@ -1,59 +1,9 @@
 ---
 import BaseSwiper from "./BaseSwiper.astro";
 import { Image } from "astro:assets";
-import before1Image from "/src/assets/images/before1.png";
-import after1Image from "/src/assets/images/after1.png";
-import before2Image from "/src/assets/images/before2.png";
-import after2Image from "/src/assets/images/after2.png";
+import { getProjects } from "../lib/sanity/api";
 
-const projects = [
-    {
-        id: 1,
-        images: {
-            before: {
-                src: before1Image,
-                alt: "Active residential construction site seeking qualified trade contractors.",
-            },
-            after: {
-                src: after1Image,
-                alt: "Completed architectural build coordinated through verified subcontractors.",
-            },
-        },
-        info: {
-            challenge: {
-                title: "Active Project Listings",
-                text: "Browse residential and commercial projects submitted by verified builders looking for qualified trades. Review location, trade needs, scope of work, and expected timelines before you apply.",
-            },
-            result: {
-                title: "Residential Builder Seeking Roofing Contractor",
-                text: "Austin, TX • Scope: Architectural shingles, flashing & underlayment. Direct applications connecting project managers to licensed subcontracting crews with zero bidding fees.",
-            },
-        },
-    },
-    {
-        id: 2,
-        images: {
-            before: {
-                src: before2Image,
-                alt: "Commercial construction interior before electrical rough-in.",
-            },
-            after: {
-                src: after2Image,
-                alt: "Finished modern commercial space with installed electrical systems.",
-            },
-        },
-        info: {
-            challenge: {
-                title: "Direct Applications & Relevant Opportunities",
-                text: "Submit your interest directly when an opportunity fits your crews. Focus on projects aligned with your trade, capacity, and service area without paying for low-quality lead lists.",
-            },
-            result: {
-                title: "Commercial Builder Seeking Electrical Contractor",
-                text: "Dallas, TX • Scope: 15,000 sq ft commercial office rough-in, 800A service, and lighting. Builders review applicants and contact qualified subcontractors directly.",
-            },
-        },
-    },
-];
+const projects = await getProjects();
 ---
 
 <section id="projects" class="portfolio">
@@ -62,45 +12,68 @@ const projects = [
         <h2 class="section-title">Spend less time chasing work and more time reviewing projects.</h2>
         <BaseSwiper sliderName="portfolio" beforeAfter>
             {
-                projects.map((project) => (
-                    <div class="swiper-slide">
-                        <div class="project-image">
-                            <Image
-                                class="image before"
-                                src={project.images.before.src}
-                                alt={project.images.before.alt}
-                                width={800}
-                                aria-hidden="true"
-                            />
-                            <Image
-                                class="image after active"
-                                src={project.images.after.src}
-                                alt={project.images.after.alt}
-                                width={1144}
-                                height={800}
-                                aria-hidden="false"
-                            />
-                        </div>
-                        <div class="project-info">
-                            <div class="info-section">
-                                <h3 class="section-subtitle info-title">
-                                    {project.info.challenge.title}
-                                </h3>
-                                <p class="info-text">
-                                    {project.info.challenge.text}
-                                </p>
+                projects.map((project) => {
+                    const isBeforeString = typeof project.beforeImage === 'string';
+                    const isAfterString = typeof project.afterImage === 'string';
+
+                    return (
+                        <div class="swiper-slide">
+                            <div class="project-image">
+                                {isBeforeString ? (
+                                    <img
+                                        class="image before"
+                                        src={project.beforeImage}
+                                        alt={project.beforeImageAlt || project.title}
+                                        aria-hidden="true"
+                                    />
+                                ) : (
+                                    <Image
+                                        class="image before"
+                                        src={project.beforeImage}
+                                        alt={project.beforeImageAlt || project.title}
+                                        width={800}
+                                        aria-hidden="true"
+                                    />
+                                )}
+                                {isAfterString ? (
+                                    <img
+                                        class="image after active"
+                                        src={project.afterImage}
+                                        alt={project.afterImageAlt || project.title}
+                                        aria-hidden="false"
+                                    />
+                                ) : (
+                                    <Image
+                                        class="image after active"
+                                        src={project.afterImage}
+                                        alt={project.afterImageAlt || project.title}
+                                        width={1144}
+                                        height={800}
+                                        aria-hidden="false"
+                                    />
+                                )}
                             </div>
-                            <div class="info-section">
-                                <h3 class="section-subtitle info-title">
-                                    {project.info.result.title}
-                                </h3>
-                                <p class="info-text">
-                                    {project.info.result.text}
-                                </p>
+                            <div class="project-info">
+                                <div class="info-section">
+                                    <h3 class="section-subtitle info-title">
+                                        {project.challengeTitle || "Active Project Listings"}
+                                    </h3>
+                                    <p class="info-text">
+                                        {project.challengeText}
+                                    </p>
+                                </div>
+                                <div class="info-section">
+                                    <h3 class="section-subtitle info-title">
+                                        {project.resultTitle || project.title}
+                                    </h3>
+                                    <p class="info-text">
+                                        {project.resultText || `${project.location} • Scope: ${project.scope}`}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))
+                    );
+                })
             }
         </BaseSwiper>
     </div>

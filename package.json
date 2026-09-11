@@ -6,13 +6,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "studio": "sanity dev",
+    "studio:deploy": "sanity deploy",
+    "seed:images": "node scripts/upload-images.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.1",
+    "@sanity/client": "^8.6.1",
+    "@sanity/image-url": "^2.1.1",
     "astro": "^6.0.8",
     "astro-favicons": "^3.1.6",
+    "sanity": "^6.13.1",
     "sharp": "^0.34.5",
+    "styled-components": "^6.5.3",
     "swiper": "^11.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.4"
   }
 }

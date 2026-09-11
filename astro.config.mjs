@@ -39,9 +39,9 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "object-src 'self'",
-        "connect-src 'self'",
+        "connect-src 'self' https://*.sanity.io https://cdn.sanity.io",
         "base-uri 'self'",
-        "img-src 'self' https: data: blob:",
+        "img-src 'self' https: data: blob: https://cdn.sanity.io",
         "media-src 'self' https: data: blob:",
         "font-src 'self' data:",
         "frame-src 'self' https://www.google.com/",

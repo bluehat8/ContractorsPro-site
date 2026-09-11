@@ -1,42 +1,7 @@
 ---
-const faqItems = [
-  {
-    id: 1,
-    question: "Is ContractorPro really free for founding subcontractors?",
-    answer:
-      "Yes! During our beta launch, founding subcontractors get 100% free access to the platform. There are zero subscription fees, zero bidding platform fees, and no commissions taken from your project earnings.",
-  },
-  {
-    id: 2,
-    question: "What types of construction projects are posted?",
-    answer:
-      "Our network features both residential and commercial opportunities submitted by verified builders — including single-family home developments, multi-family construction, tenant improvements, and commercial build-outs.",
-  },
-  {
-    id: 3,
-    question: "How do builders contact my company after I apply?",
-    answer:
-      "When you express interest in an active project, the builder reviews your company credentials, trade specializations, and service area. If you are a match, they reach out directly via phone or email to discuss details and contracts.",
-  },
-  {
-    id: 4,
-    question: "What trades and specialties can join the beta?",
-    answer:
-      "We welcome all qualified construction trades: roofing, electrical, HVAC, concrete, drywall, framing, painting, plumbing, remodeling, carpentry, flooring, tile, and more.",
-  },
-  {
-    id: 5,
-    question: "What qualifications are required to join?",
-    answer:
-      "We prioritize licensed and insured trade contractors (General Liability Insurance and active trade licenses where mandated by state and local regulations) with reliable crews.",
-  },
-  {
-    id: 6,
-    question: "How does ContractorPro compare to traditional lead services?",
-    answer:
-      "Traditional lead services charge expensive fees for recycled leads that are sold to dozens of competitors at once. ContractorPro connects you directly to builders who have real, scheduled projects looking for reliable subcontracting crews.",
-  },
-];
+import { getFAQ } from "../lib/sanity/api";
+
+const faqItems = await getFAQ();
 ---
 
 <section id="faq" class="faq">

@@ -1,10 +1,16 @@
+---
+import { getSiteSettings } from "../lib/sanity/api";
+
+const settings = await getSiteSettings();
+---
+
 <section id="hero" class="hero">
     <div class="section-container hero-container">
         <div class="hero-content">
-            <span class="section-tag">SUBCONTRACTOR PROJECT ACCESS</span>
-            <h1 class="hero-title">Connect With Construction Projects Looking for Subcontractors.</h1>
+            <span class="section-tag">{settings.heroTag || "SUBCONTRACTOR PROJECT ACCESS"}</span>
+            <h1 class="hero-title">{settings.heroTitle || "Connect With Construction Projects Looking for Subcontractors."}</h1>
             <p class="hero-subtitle">
-                Get early access to residential and commercial construction opportunities from builders seeking reliable roofing, electrical, HVAC, concrete, drywall, framing, painting, carpentry, flooring, and more.
+                {settings.heroSubtitle}
             </p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn--primary"
@@ -39,7 +45,7 @@
                 </a>
             </div>
             <div class="hero-perks">
-                <p class="hero-notice">Founding contractors get free access while we launch the beta.</p>
+                <p class="hero-notice">{settings.heroNotice || "Founding contractors get free access while we launch the beta."}</p>
                 <ul class="hero-checklist">
                     <li>✓ Active project listings</li>
                     <li>✓ Residential and commercial opportunities</li>
@@ -52,7 +58,7 @@
             <video
                 class="media"
                 preload="auto"
-                poster="hero-video-poster.webp"
+                poster={settings.heroVideoPoster || "hero-video-poster.webp"}
                 autoplay
                 loop
                 muted
@@ -60,8 +66,7 @@
                 aria-hidden="true"
             >
                 <source
-                    src="https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm"
-                    type="video/webm"
+                    src={settings.heroVideoUrl || "https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm"}
                 />
             </video>
         </div>
