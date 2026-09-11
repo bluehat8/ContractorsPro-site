@@ -108,7 +108,7 @@ const servicesCol2 = [
     </div>
 
     <div class="contact-bottom">
-      <form class="contact-form" action="" data-script-url={scriptUrl}>
+      <form class="contact-form" action="" data-script-url={scriptUrl} data-contact-email={contactEmail}>
         <div class="contact-form-fields">
           <div class="form-group">
             <label class="form-label" for="name">Contact Name</label>
@@ -1004,6 +1004,8 @@ const servicesCol2 = [
         submittedAt: new Date().toISOString()
       };
 
+      let submitted = false;
+
       if (scriptUrl) {
         try {
           await fetch(scriptUrl, {
@@ -1014,23 +1016,40 @@ const servicesCol2 = [
             },
             body: JSON.stringify(payload)
           });
+          submitted = true;
         } catch (err) {
           console.error('Error submitting form to Google Apps Script:', err);
         }
       } else {
         console.warn('Google Apps Script URL is not configured yet. Set it in Sanity or .env.', payload);
         await new Promise(resolve => setTimeout(resolve, 600));
+        submitted = true;
+      }
+
+      const feedbackTitle = feedback.querySelector<HTMLElement>('.feedback-title');
+      const feedbackDesc = feedback.querySelector<HTMLElement>('.feedback-desc');
+      const contactEmail = form.dataset.contactEmail || 'contact@contractorspro.us';
+
+      if (feedbackTitle && feedbackDesc) {
+        feedbackTitle.textContent = submitted
+          ? 'Application Submitted Successfully!'
+          : 'Submission Failed';
+        feedbackDesc.textContent = submitted
+          ? 'Thank you for joining ContractorPro! Your founding contractor details have been saved. Our team will review your credentials and reach out shortly.'
+          : `We could not send your application. Please try again in a moment or email us at ${contactEmail}.`;
       }
 
       feedback.hidden = false;
       feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-      form.reset();
-      // reset visual state
-      document.querySelectorAll('.service-card').forEach(c => c.classList.remove('is-checked'));
-      document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('is-checked'));
-      document.querySelector('.service-card:first-child')?.classList.add('is-checked');
-      document.querySelectorAll('.radio-card:first-child').forEach(c => c.classList.add('is-checked'));
+      if (submitted) {
+        form.reset();
+        // reset visual state
+        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('is-checked'));
+        document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('is-checked'));
+        document.querySelector('.service-card:first-child')?.classList.add('is-checked');
+        document.querySelectorAll('.radio-card:first-child').forEach(c => c.classList.add('is-checked'));
+      }
 
       submitButton.textContent = originalText;
       submitButton.disabled = false;
