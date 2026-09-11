@@ -3,7 +3,8 @@ import { SITE } from '@consts';
 import { getSiteSettings } from '../lib/sanity/api';
 
 const settings = await getSiteSettings();
-const scriptUrl = settings?.googleScriptUrl || import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL || '';
+const fallbackUrl = 'https://script.google.com/macros/s/AKfycbzCvWs79X7Ud3rjnwYToRn3EQw2wI27GWchH1VN9E6H9r5FxawWzWTaIvMyDO36tmSo/exec';
+const scriptUrl = settings?.googleScriptUrl || import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL || fallbackUrl;
 const contactEmail = settings?.contactEmail || SITE.EMAIL;
 const contactPhone = settings?.contactPhone || SITE.TELEPHONE;
 
@@ -967,7 +968,7 @@ const servicesCol2 = [
       const originalText = submitButton.textContent;
       submitButton.textContent = 'SUBMITTING...';
 
-      const scriptUrl = form.dataset.scriptUrl?.trim();
+      const scriptUrl = form.dataset.scriptUrl?.trim() || 'https://script.google.com/macros/s/AKfycbzCvWs79X7Ud3rjnwYToRn3EQw2wI27GWchH1VN9E6H9r5FxawWzWTaIvMyDO36tmSo/exec';
 
       // Gather form values
       const name = (document.getElementById('name') as HTMLInputElement)?.value.trim() || '';
