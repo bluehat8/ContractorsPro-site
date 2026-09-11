@@ -1,71 +1,53 @@
 ---
 import { Image } from "astro:assets";
-import consultationImage from "/src/assets/images/consultation.jpg";
-import designImage from "/src/assets/images/design.jpg";
-import transformImage from "/src/assets/images/transform.jpg";
+import { getHowItWorksSteps, getSiteSettings } from "../lib/sanity/api";
 
-const processSteps = [
-    {
-        id: 1,
-        title: "1. Join the Network",
-        description:
-            "Tell us what trades you cover and where your crews can work. Founding subcontractors receive early access to residential and commercial construction opportunities.",
-        image: {
-            src: consultationImage,
-            alt: "Subcontractor registering specialties in ContractorPro",
-        },
-    },
-    {
-        id: 2,
-        title: "2. Browse & Review Projects",
-        description:
-            "Review residential and commercial construction opportunities that match your expertise. Check the trade needs, scope of work, budget indications, and expected timelines before you apply.",
-        image: {
-            src: designImage,
-            alt: "Reviewing active construction project details and blueprints",
-        },
-    },
-    {
-        id: 3,
-        title: "3. Connect with Builders Directly",
-        description:
-            "Submit your interest directly when an opportunity fits your business. Builders and homeowners review qualified subcontractors and reach out to discuss bids and contracts.",
-        image: {
-            src: transformImage,
-            alt: "Subcontractor and general contractor working on site",
-        },
-    },
-];
+const settings = await getSiteSettings();
+const processSteps = await getHowItWorksSteps();
 ---
 
 <section id="how-it-works" class="process">
     <div class="section-container">
         <div class="process-content">
-            <span class="section-tag">HOW IT WORKS</span>
-            <h2 class="section-title">A simple path from joining the network to connecting with builders.</h2>
+            <span class="section-tag">{settings.howItWorksTag || "HOW IT WORKS"}</span>
+            <h2 class="section-title">{settings.howItWorksTitle || "A simple path from joining the network to connecting with builders."}</h2>
             <div class="process-steps">
                 {
-                    processSteps.map((step) => (
-                        <div class="process-step">
-                            <div class="process-step-content">
-                                <h3 class="section-subtitle process-step-title">
-                                    {step.title}
-                                </h3>
-                                <p class="process-step-description">
-                                    {step.description}
-                                </p>
+                    processSteps.map((step) => {
+                        const isImageString = typeof step.image === 'string';
+
+                        return (
+                            <div class="process-step">
+                                <div class="process-step-content">
+                                    <h3 class="section-subtitle process-step-title">
+                                        {step.title}
+                                    </h3>
+                                    <p class="process-step-description">
+                                        {step.description}
+                                    </p>
+                                </div>
+                                <div class="process-step-image-wrapper">
+                                    {isImageString ? (
+                                        <img
+                                            src={step.image}
+                                            alt={step.imageAlt || step.title}
+                                            width="1272"
+                                            height="660"
+                                            class="media"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={step.image}
+                                            alt={step.imageAlt || step.title}
+                                            width={1272}
+                                            height={660}
+                                            class="media"
+                                        />
+                                    )}
+                                </div>
                             </div>
-                            <div class="process-step-image-wrapper">
-                                <Image
-                                    src={step.image.src}
-                                    alt={step.image.alt}
-                                    width={1272}
-                                    height={660}
-                                    class="media"
-                                />
-                            </div>
-                        </div>
-                    ))
+                        );
+                    })
                 }
             </div>
         </div>

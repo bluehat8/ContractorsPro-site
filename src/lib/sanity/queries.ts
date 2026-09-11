@@ -39,6 +39,17 @@ export const faqQuery = `*[_type == "faqItem"] | order(order asc, _createdAt asc
   order
 }`;
 
+export const howItWorksQuery = `*[_type == "howItWorksStep"] | order(order asc, stepNumber asc, _createdAt asc) {
+  _id,
+  "id": _id,
+  stepNumber,
+  title,
+  description,
+  image,
+  imageAlt,
+  order
+}`;
+
 export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   siteTitle,
   siteDescription,
@@ -49,7 +60,10 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   heroVideoUrl,
   "heroVideoFileUrl": heroVideoFile.asset->url,
   heroVideoPoster,
+  howItWorksTag,
+  howItWorksTitle,
   contactEmail,
   contactPhone
 }`;
+
 

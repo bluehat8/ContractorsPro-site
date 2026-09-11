@@ -1,7 +1,8 @@
 import { sanityClient, isSanityConfigured, urlForImage } from './client';
-import { projectsQuery, testimonialsQuery, faqQuery, siteSettingsQuery } from './queries';
-import { defaultProjects, defaultTestimonials, defaultFAQItems, defaultSiteSettings } from './defaults';
-import type { SanityProject, SanityTestimonial, SanityFAQItem, SanitySiteSettings } from './types';
+import { projectsQuery, testimonialsQuery, faqQuery, siteSettingsQuery, howItWorksQuery } from './queries';
+import { defaultProjects, defaultTestimonials, defaultFAQItems, defaultSiteSettings, defaultHowItWorksSteps } from './defaults';
+import type { SanityProject, SanityTestimonial, SanityFAQItem, SanitySiteSettings, SanityHowItWorksStep } from './types';
+
 
 export async function getProjects(): Promise<SanityProject[]> {
   if (!isSanityConfigured || !sanityClient) {
@@ -72,6 +73,31 @@ export async function getFAQ(): Promise<SanityFAQItem[]> {
   } catch (err) {
     console.warn('[Sanity] Error fetching FAQ, using local fallback:', err);
     return defaultFAQItems;
+  }
+}
+
+export async function getHowItWorksSteps(): Promise<SanityHowItWorksStep[]> {
+  if (!isSanityConfigured || !sanityClient) {
+    return defaultHowItWorksSteps;
+  }
+
+  try {
+    const data = await sanityClient.fetch<SanityHowItWorksStep[]>(howItWorksQuery);
+    if (data && data.length > 0) {
+      return data.map((step, index) => {
+        const fallback = defaultHowItWorksSteps[index] || defaultHowItWorksSteps[0];
+        const stepImg = step.image ? urlForImage(step.image)?.url() : null;
+
+        return {
+          ...step,
+          image: stepImg || fallback?.image,
+        };
+      });
+    }
+    return defaultHowItWorksSteps;
+  } catch (err) {
+    console.warn('[Sanity] Error fetching How It Works steps, using local fallback:', err);
+    return defaultHowItWorksSteps;
   }
 }
 

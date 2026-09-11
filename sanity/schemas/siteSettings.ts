@@ -14,8 +14,13 @@ export default {
       options: { collapsible: true, collapsed: false },
     },
     {
+      name: 'howItWorksCopy',
+      title: '3. Encabezados de "How It Works"',
+      options: { collapsible: true, collapsed: false },
+    },
+    {
       name: 'contactInfo',
-      title: '3. Información de Contacto',
+      title: '4. Información de Contacto',
       options: { collapsible: true, collapsed: false },
     },
   ],
@@ -85,6 +90,20 @@ export default {
       fieldset: 'heroMedia',
       description: 'Imagen de portada que se muestra mientras el video comienza a reproducirse.',
       options: { hotspot: true },
+    },
+    {
+      name: 'howItWorksTag',
+      title: 'Tag / Etiqueta de la Sección',
+      type: 'string',
+      fieldset: 'howItWorksCopy',
+      initialValue: 'HOW IT WORKS',
+    },
+    {
+      name: 'howItWorksTitle',
+      title: 'Título Principal de "How It Works"',
+      type: 'string',
+      fieldset: 'howItWorksCopy',
+      initialValue: 'A simple path from joining the network to connecting with builders.',
     },
     {
       name: 'contactEmail',

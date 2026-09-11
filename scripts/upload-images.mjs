@@ -98,17 +98,63 @@ async function run() {
       console.log('✅ Testimonio 2 (Carlos Ramirez) actualizado con su avatar.');
     }
 
-    // 3. Vincular video por defecto en siteSettings
+    // 3. Subir imágenes y crear pasos de How It Works
+    const consult = await uploadFile('src/assets/images/consultation.jpg');
+    const design = await uploadFile('src/assets/images/design.jpg');
+    const transform = await uploadFile('src/assets/images/transform.jpg');
+
+    await client.createOrReplace({
+      _id: 'how-it-works-1',
+      _type: 'howItWorksStep',
+      stepNumber: 1,
+      title: '1. Join the Network',
+      description:
+        'Tell us what trades you cover and where your crews can work. Founding subcontractors receive early access to residential and commercial construction opportunities.',
+      image: consult ? { _type: 'image', asset: { _type: 'reference', _ref: consult._id } } : undefined,
+      imageAlt: 'Subcontractor registering specialties in ContractorPro',
+      order: 1,
+    });
+    console.log('✅ Paso 1 de How It Works creado/actualizado.');
+
+    await client.createOrReplace({
+      _id: 'how-it-works-2',
+      _type: 'howItWorksStep',
+      stepNumber: 2,
+      title: '2. Browse & Review Projects',
+      description:
+        'Review residential and commercial construction opportunities that match your expertise. Check the trade needs, scope of work, budget indications, and expected timelines before you apply.',
+      image: design ? { _type: 'image', asset: { _type: 'reference', _ref: design._id } } : undefined,
+      imageAlt: 'Reviewing active construction project details and blueprints',
+      order: 2,
+    });
+    console.log('✅ Paso 2 de How It Works creado/actualizado.');
+
+    await client.createOrReplace({
+      _id: 'how-it-works-3',
+      _type: 'howItWorksStep',
+      stepNumber: 3,
+      title: '3. Connect with Builders Directly',
+      description:
+        'Submit your interest directly when an opportunity fits your business. Builders and homeowners review qualified subcontractors and reach out to discuss bids and contracts.',
+      image: transform ? { _type: 'image', asset: { _type: 'reference', _ref: transform._id } } : undefined,
+      imageAlt: 'Subcontractor and general contractor working on site',
+      order: 3,
+    });
+    console.log('✅ Paso 3 de How It Works creado/actualizado.');
+
+    // 4. Vincular video por defecto y títulos en siteSettings
     await client
       .patch('siteSettings')
       .set({
         heroVideoUrl:
           'https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm',
+        howItWorksTag: 'HOW IT WORKS',
+        howItWorksTitle: 'A simple path from joining the network to connecting with builders.',
       })
       .commit();
-    console.log('✅ Site Settings actualizado con la URL del video del Hero.');
+    console.log('✅ Site Settings actualizado con Video y títulos de How It Works.');
 
-    console.log('\n🎉 ¡Completado! Todas las imágenes y el video están ahora en tu Sanity Studio.\n');
+    console.log('\n🎉 ¡Completado! Todas las imágenes, proyectos, testimonios y How It Works están en Sanity Studio.\n');
   } catch (error) {
     console.error('❌ Error durante la subida:', error);
   }

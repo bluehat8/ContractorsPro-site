@@ -39,6 +39,17 @@ export interface SanityFAQItem {
   order?: number;
 }
 
+export interface SanityHowItWorksStep {
+  _id?: string;
+  id: number | string;
+  stepNumber?: number;
+  title: string;
+  description: string;
+  image?: any;
+  imageAlt?: string;
+  order?: number;
+}
+
 export interface SanitySiteSettings {
   siteTitle?: string;
   siteDescription?: string;
@@ -50,7 +61,10 @@ export interface SanitySiteSettings {
   heroVideoFile?: any;
   heroVideoFileUrl?: string;
   heroVideoPoster?: any;
+  howItWorksTag?: string;
+  howItWorksTitle?: string;
   contactEmail?: string;
   contactPhone?: string;
 }
+
 

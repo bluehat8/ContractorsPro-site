@@ -4,7 +4,11 @@ import before2Image from '../../assets/images/before2.png';
 import after2Image from '../../assets/images/after2.png';
 import sarahJohnsonImage from '../../assets/images/sarah-johnson.jpg';
 import emmaImage from '../../assets/images/emma.jpg';
-import type { SanityProject, SanityTestimonial, SanityFAQItem, SanitySiteSettings } from './types';
+import consultationImage from '../../assets/images/consultation.jpg';
+import designImage from '../../assets/images/design.jpg';
+import transformImage from '../../assets/images/transform.jpg';
+import type { SanityProject, SanityTestimonial, SanityFAQItem, SanityHowItWorksStep, SanitySiteSettings } from './types';
+
 
 export const defaultProjects: SanityProject[] = [
   {
@@ -123,6 +127,39 @@ export const defaultFAQItems: SanityFAQItem[] = [
   },
 ];
 
+export const defaultHowItWorksSteps: SanityHowItWorksStep[] = [
+  {
+    id: 1,
+    stepNumber: 1,
+    title: '1. Join the Network',
+    description:
+      'Tell us what trades you cover and where your crews can work. Founding subcontractors receive early access to residential and commercial construction opportunities.',
+    image: consultationImage,
+    imageAlt: 'Subcontractor registering specialties in ContractorPro',
+    order: 1,
+  },
+  {
+    id: 2,
+    stepNumber: 2,
+    title: '2. Browse & Review Projects',
+    description:
+      'Review residential and commercial construction opportunities that match your expertise. Check the trade needs, scope of work, budget indications, and expected timelines before you apply.',
+    image: designImage,
+    imageAlt: 'Reviewing active construction project details and blueprints',
+    order: 2,
+  },
+  {
+    id: 3,
+    stepNumber: 3,
+    title: '3. Connect with Builders Directly',
+    description:
+      'Submit your interest directly when an opportunity fits your business. Builders and homeowners review qualified subcontractors and reach out to discuss bids and contracts.',
+    image: transformImage,
+    imageAlt: 'Subcontractor and general contractor working on site',
+    order: 3,
+  },
+];
+
 export const defaultSiteSettings: SanitySiteSettings = {
   siteTitle: 'ContractorPro US',
   siteDescription: 'Connecting construction projects with qualified subcontractors.',
@@ -133,6 +170,9 @@ export const defaultSiteSettings: SanitySiteSettings = {
   heroNotice: 'Founding contractors get free access while we launch the beta.',
   heroVideoUrl: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm',
   heroVideoPoster: 'hero-video-poster.webp',
+  howItWorksTag: 'HOW IT WORKS',
+  howItWorksTitle: 'A simple path from joining the network to connecting with builders.',
   contactEmail: 'contact@contractorspro.us',
   contactPhone: '(888) 555-0199',
 };
+
