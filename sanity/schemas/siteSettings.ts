@@ -81,7 +81,7 @@ export default {
       type: 'url',
       fieldset: 'heroMedia',
       description: 'Si prefieres usar un enlace externo directo, puedes ingresarlo aquí.',
-      initialValue: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm',
+      initialValue: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_mp4,q_auto,w_1080/v1774623099/ik-video_esc1gl.mp4',
     },
     {
       name: 'heroVideoPoster',

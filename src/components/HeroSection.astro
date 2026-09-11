@@ -2,7 +2,27 @@
 import { getSiteSettings } from "../lib/sanity/api";
 
 const settings = await getSiteSettings();
+
+const videoUrl = settings.heroVideoUrl || "https://res.cloudinary.com/dellp9a4z/video/upload/f_mp4,q_auto,w_1080/v1774623099/ik-video_esc1gl.mp4";
+
+// Generate MP4 & WebM URLs for universal mobile & iOS Safari support
+let mp4Url = videoUrl;
+let webmUrl = "";
+
+if (videoUrl.includes("cloudinary.com")) {
+    mp4Url = videoUrl
+        .replace(/(\.webm|\.mp4)?$/, ".mp4")
+        .replace("vc_vp9", "vc_h264")
+        .replace("f_auto", "f_mp4");
+    webmUrl = videoUrl
+        .replace(/(\.webm|\.mp4)?$/, ".webm")
+        .replace("f_mp4", "f_auto");
+} else if (videoUrl.endsWith(".webm")) {
+    webmUrl = videoUrl;
+    mp4Url = videoUrl.replace(/\.webm$/, ".mp4");
+}
 ---
+
 
 <section id="hero" class="hero">
     <div class="section-container hero-container">
@@ -56,19 +76,32 @@ const settings = await getSiteSettings();
         </div>
         <div class="video-wrapper">
             <video
-                class="media"
+                id="heroVideo"
+                class="media hero-video"
                 preload="auto"
                 poster={settings.heroVideoPoster || "hero-video-poster.webp"}
                 autoplay
                 loop
                 muted
                 playsinline
-                aria-hidden="true"
+                webkit-playsinline
             >
-                <source
-                    src={settings.heroVideoUrl || "https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm"}
-                />
+                {mp4Url && <source src={mp4Url} type="video/mp4" />}
+                {webmUrl && webmUrl !== mp4Url && <source src={webmUrl} type="video/webm" />}
             </video>
+            <button
+                type="button"
+                id="heroVideoToggle"
+                class="video-play-btn is-paused"
+                aria-label="Reproducir o pausar video"
+            >
+                <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                </svg>
+                <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+            </button>
         </div>
     </div>
 </section>
@@ -143,6 +176,7 @@ const settings = await getSiteSettings();
     }
 
     .video-wrapper {
+        position: relative;
         width: 100%;
         height: 100%;
         max-height: min(34rem, 70vh);
@@ -150,6 +184,7 @@ const settings = await getSiteSettings();
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        cursor: pointer;
     }
 
     .video-wrapper video {
@@ -158,6 +193,60 @@ const settings = await getSiteSettings();
         max-height: min(34rem, 70vh);
         object-fit: cover;
     }
+
+    .video-play-btn {
+        position: absolute;
+        bottom: var(--px-16);
+        right: var(--px-16);
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.65);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 5;
+        transition: transform 0.2s ease, background 0.2s ease, opacity 0.3s ease;
+        opacity: 0.85;
+    }
+
+    .video-play-btn:hover {
+        transform: scale(1.08);
+        background: rgba(0, 0, 0, 0.9);
+        opacity: 1;
+    }
+
+    .video-play-btn svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .video-play-btn .icon-play {
+        display: none;
+        margin-left: 2px;
+    }
+
+    .video-play-btn .icon-pause {
+        display: block;
+    }
+
+    .video-play-btn.is-paused .icon-play {
+        display: block;
+    }
+
+    .video-play-btn.is-paused .icon-pause {
+        display: none;
+    }
+
+    .video-wrapper:hover .video-play-btn {
+        opacity: 1;
+    }
+
 
     .hero-perks {
         margin-top: var(--px-20);
@@ -264,3 +353,68 @@ const settings = await getSiteSettings();
         }
     }
 </style>
+
+<script>
+    function initHeroVideo() {
+        const video = document.getElementById("heroVideo") as HTMLVideoElement | null;
+        const toggleBtn = document.getElementById("heroVideoToggle");
+        if (!video) return;
+
+        // Force muted properties required for iOS Safari & Android Autoplay
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+
+        const syncState = () => {
+            if (!toggleBtn) return;
+            if (video.paused) {
+                toggleBtn.classList.add("is-paused");
+            } else {
+                toggleBtn.classList.remove("is-paused");
+            }
+        };
+
+        const tryPlay = () => {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        syncState();
+                    })
+                    .catch(() => {
+                        // Autoplay prevented (e.g. iOS low power mode or battery saver)
+                        syncState();
+                        // Trigger play on first user interaction anywhere on the screen
+                        const startOnInteraction = () => {
+                            video.play().catch(() => {});
+                            syncState();
+                        };
+                        window.addEventListener("touchstart", startOnInteraction, { once: true });
+                        window.addEventListener("click", startOnInteraction, { once: true });
+                    });
+            }
+        };
+
+        tryPlay();
+
+        const togglePlayback = (e: Event) => {
+            e.stopPropagation();
+            if (video.paused) {
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+            syncState();
+        };
+
+        toggleBtn?.addEventListener("click", togglePlayback);
+        video.addEventListener("click", togglePlayback);
+        video.addEventListener("play", syncState);
+        video.addEventListener("pause", syncState);
+    }
+
+    initHeroVideo();
+    document.addEventListener("astro:page-load", initHeroVideo);
+    document.addEventListener("astro:after-swap", initHeroVideo);
+</script>
+

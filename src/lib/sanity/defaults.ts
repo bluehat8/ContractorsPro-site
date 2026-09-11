@@ -168,7 +168,7 @@ export const defaultSiteSettings: SanitySiteSettings = {
   heroSubtitle:
     'Get early access to residential and commercial construction opportunities from builders seeking reliable roofing, electrical, HVAC, concrete, drywall, framing, painting, carpentry, flooring, and more.',
   heroNotice: 'Founding contractors get free access while we launch the beta.',
-  heroVideoUrl: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_auto,q_auto,vc_vp9,w_1080/v1774623099/ik-video_esc1gl.webm',
+  heroVideoUrl: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_mp4,q_auto,w_1080/v1774623099/ik-video_esc1gl.mp4',
   heroVideoPoster: 'hero-video-poster.webp',
   howItWorksTag: 'HOW IT WORKS',
   howItWorksTitle: 'A simple path from joining the network to connecting with builders.',
