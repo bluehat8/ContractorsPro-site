@@ -172,7 +172,8 @@ export const defaultSiteSettings: SanitySiteSettings = {
   heroVideoPoster: 'hero-video-poster.webp',
   howItWorksTag: 'HOW IT WORKS',
   howItWorksTitle: 'A simple path from joining the network to connecting with builders.',
-  appLoginUrl: 'https://www.app.contractorspro.us/',
+  appLoginUrl: 'https://app.contractorspro.us/',
+  googleScriptUrl: '',
   contactEmail: 'contact@contractorspro.us',
   contactPhone: '(888) 555-0199',
 };

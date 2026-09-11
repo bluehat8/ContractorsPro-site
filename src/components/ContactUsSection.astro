@@ -1,5 +1,11 @@
 ---
 import { SITE } from '@consts';
+import { getSiteSettings } from '../lib/sanity/api';
+
+const settings = await getSiteSettings();
+const scriptUrl = settings?.googleScriptUrl || import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL || '';
+const contactEmail = settings?.contactEmail || SITE.EMAIL;
+const contactPhone = settings?.contactPhone || SITE.TELEPHONE;
 
 const servicesCol1 = [
   "Roofing",
@@ -71,11 +77,11 @@ const servicesCol2 = [
           </div>
           <h3 class="contact-subtitle">Subcontractor Support</h3>
           <div class="contact-details">
-            <a href=`mailto:${SITE.EMAIL}` class="contact-detail contact-email"
-              >{SITE.EMAIL}</a
+            <a href={`mailto:${contactEmail}`} class="contact-detail contact-email"
+              >{contactEmail}</a
             >
-            <a href=`tel:${SITE.TELEPHONE}` class="contact-detail contact-phone"
-              >{SITE.TELEPHONE}</a
+            <a href={`tel:${contactPhone}`} class="contact-detail contact-phone"
+              >{contactPhone}</a
             >
           </div>
         </div>
@@ -101,7 +107,7 @@ const servicesCol2 = [
     </div>
 
     <div class="contact-bottom">
-      <form class="contact-form" action="">
+      <form class="contact-form" action="" data-script-url={scriptUrl}>
         <div class="contact-form-fields">
           <div class="form-group">
             <label class="form-label" for="name">Contact Name</label>
@@ -252,7 +258,15 @@ const servicesCol2 = [
           </div>
         </div>
         <div id="form-feedback" class="form-feedback" hidden>
-          <p>Thank you! Your beta application has been received. Our team will contact you shortly.</p>
+          <div class="feedback-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div class="feedback-text">
+            <strong class="feedback-title">Application Submitted Successfully!</strong>
+            <p class="feedback-desc">Thank you for joining ContractorPro! Your founding contractor details have been saved. Our team will review your credentials and reach out shortly.</p>
+          </div>
         </div>
       </form>
 
@@ -849,6 +863,70 @@ const servicesCol2 = [
       padding: var(--px-24);
     }
   }
+
+  .form-feedback {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    border-radius: 0.75rem;
+    color: #f1f5f9;
+    animation: feedbackFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .form-feedback[hidden] {
+    display: none;
+  }
+
+  .feedback-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #10b981;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feedback-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .feedback-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .feedback-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #34d399;
+  }
+
+  .feedback-desc {
+    font-size: var(--text-xs);
+    color: #cbd5e1;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  @keyframes feedbackFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
 <script>
@@ -889,9 +967,62 @@ const servicesCol2 = [
       const originalText = submitButton.textContent;
       submitButton.textContent = 'SUBMITTING...';
 
-      await new Promise(resolve => setTimeout(resolve, 1200));
+      const scriptUrl = form.dataset.scriptUrl?.trim();
+
+      // Gather form values
+      const name = (document.getElementById('name') as HTMLInputElement)?.value.trim() || '';
+      const company = (document.getElementById('company') as HTMLInputElement)?.value.trim() || '';
+      const email = (document.getElementById('email') as HTMLInputElement)?.value.trim() || '';
+      const phone = (document.getElementById('phone') as HTMLInputElement)?.value.trim() || '';
+      const location = (document.getElementById('location') as HTMLInputElement)?.value.trim() || '';
+
+      const selectedServices: string[] = [];
+      document.querySelectorAll<HTMLInputElement>('.service-input:checked').forEach(cb => {
+        selectedServices.push(cb.value);
+      });
+
+      const insuranceChecked = document.querySelector<HTMLInputElement>('input[name="insurance"]:checked');
+      const insurance = insuranceChecked ? (insuranceChecked.value === 'yes' ? 'Yes' : 'No') : 'Yes';
+
+      const tinChecked = document.querySelector<HTMLInputElement>('input[name="tin"]:checked');
+      const tin = tinChecked ? (tinChecked.value === 'yes' ? 'Yes' : 'No') : 'Yes';
+
+      const message = (document.getElementById('message') as HTMLTextAreaElement)?.value.trim() || '';
+
+      const payload = {
+        name,
+        company,
+        email,
+        phone,
+        location,
+        services: selectedServices.join(', '),
+        insurance,
+        tin,
+        message,
+        source: 'ContractorPro Landing Page Beta Access',
+        submittedAt: new Date().toISOString()
+      };
+
+      if (scriptUrl) {
+        try {
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+          });
+        } catch (err) {
+          console.error('Error submitting form to Google Apps Script:', err);
+        }
+      } else {
+        console.warn('Google Apps Script URL is not configured yet. Set it in Sanity or .env.', payload);
+        await new Promise(resolve => setTimeout(resolve, 600));
+      }
 
       feedback.hidden = false;
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
       form.reset();
       // reset visual state
@@ -905,6 +1036,6 @@ const servicesCol2 = [
 
       setTimeout(() => {
         feedback.hidden = true;
-      }, 5000);
+      }, 8000);
     });
 </script>

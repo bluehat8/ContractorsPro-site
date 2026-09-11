@@ -64,6 +64,7 @@ export interface SanitySiteSettings {
   howItWorksTag?: string;
   howItWorksTitle?: string;
   appLoginUrl?: string;
+  googleScriptUrl?: string;
   contactEmail?: string;
   contactPhone?: string;
 }

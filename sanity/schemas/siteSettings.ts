@@ -23,6 +23,11 @@ export default {
       title: '4. Información de Contacto',
       options: { collapsible: true, collapsed: false },
     },
+    {
+      name: 'integrations',
+      title: '5. Integraciones y Formularios',
+      options: { collapsible: true, collapsed: false },
+    },
   ],
   fields: [
     {
@@ -110,7 +115,14 @@ export default {
       title: 'URL de Login de la App',
       type: 'url',
       description: 'Enlace del botón "Log In" del header (ej: https://www.app.contractorspro.us/)',
-      initialValue: 'https://www.app.contractorspro.us/',
+      initialValue: 'https://app.contractorspro.us/',
+    },
+    {
+      name: 'googleScriptUrl',
+      title: 'Google Apps Script Web App URL (Formulario a Google Sheets)',
+      type: 'url',
+      fieldset: 'integrations',
+      description: 'URL generada al implementar el Apps Script como Aplicación Web (termina en /exec).',
     },
     {
       name: 'contactEmail',

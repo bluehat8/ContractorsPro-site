@@ -63,6 +63,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   howItWorksTag,
   howItWorksTitle,
   appLoginUrl,
+  googleScriptUrl,
   contactEmail,
   contactPhone
 }`;
