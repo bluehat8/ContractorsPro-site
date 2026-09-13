@@ -1,36 +1,50 @@
 ---
 import { Image } from 'astro:assets';
+import { getWhyJoin } from '../lib/sanity/api';
 import twoWomenSittingImage from '/src/assets/images/two-women-sitting.png';
 
-const aboutContent = [
+const whyJoin = await getWhyJoin();
+const tag = whyJoin.tag || 'WHY CONTRACTORS JOIN';
+const title = whyJoin.title || 'Finding consistent, quality projects is still one of the hardest parts.';
+const imageAlt = whyJoin.imageAlt || 'Contractors discussing construction project blueprint.';
+const items = whyJoin.items && whyJoin.items.length > 0 ? whyJoin.items : [
   {
-    id: 1,
     title: 'Our goal is simple:',
     text: 'Help subcontractors find new construction opportunities faster. Spend less time searching for leads and more time pursuing projects that fit your crews.',
   },
   {
-    id: 2,
     title: 'Direct builder demand you can act on',
     text: 'Most contractors depend on word-of-mouth referrals, cold outreach, existing relationships, or expensive lead generation. ContractorPro connects you directly with builders and project owners seeking reliable roofing, electrical, HVAC, concrete, drywall, framing, painting, plumbing, carpentry, flooring, and more.',
   },
 ];
+const isHidden = whyJoin.hideSection ?? false;
 ---
 
+{!isHidden && (
 <section id="about" class="about">
   <div class="section-container">
-    <span class="section-tag">WHY CONTRACTORS JOIN</span>
-    <h2 class="section-title">Finding consistent, quality projects is still one of the hardest parts.</h2>
+    <span class="section-tag">{tag}</span>
+    <h2 class="section-title">{title}</h2>
     <div class="about-container">
       <div class="about-image-wrapper">
-        <Image
-          src={twoWomenSittingImage}
-          alt="Contractors discussing construction project blueprint."
-          class="media"
-        />
+        {whyJoin.imageUrl ? (
+          <img
+            src={whyJoin.imageUrl}
+            alt={imageAlt}
+            class="media about-sanity-img"
+            loading="lazy"
+          />
+        ) : (
+          <Image
+            src={twoWomenSittingImage}
+            alt={imageAlt}
+            class="media"
+          />
+        )}
       </div>
       <div class="about-content">
         {
-          aboutContent.map(content => (
+          items.map(content => (
             <>
               <h3 class="section-subtitle about-subtitle">{content.title}</h3>
               <p class="about-text">{content.text}</p>
@@ -41,6 +55,7 @@ const aboutContent = [
     </div>
   </div>
 </section>
+)}
 
 <style>
   .about-container {
@@ -56,6 +71,13 @@ const aboutContent = [
     min-height: 24rem;
     overflow: hidden;
     aspect-ratio: 4/3;
+  }
+
+  .about-sanity-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .about-content {

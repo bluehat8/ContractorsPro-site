@@ -2,6 +2,10 @@
 import { getSiteSettings } from "../lib/sanity/api";
 
 const settings = await getSiteSettings();
+const heroCtaText = settings.heroCtaText || "GET EARLY ACCESS";
+const heroCtaUrl = settings.heroCtaUrl || "#contact";
+const heroSecondaryCtaText = settings.heroSecondaryCtaText || "How It Works?";
+const heroSecondaryCtaUrl = settings.heroSecondaryCtaUrl || "#how-it-works";
 
 const videoUrl = settings.heroVideoUrl || "https://res.cloudinary.com/dellp9a4z/video/upload/f_mp4,q_auto,w_1080/v1774623099/ik-video_esc1gl.mp4";
 
@@ -33,10 +37,10 @@ if (videoUrl.includes("cloudinary.com")) {
                 {settings.heroSubtitle}
             </p>
             <div class="hero-cta">
-                <a href="#contact" class="btn btn--primary"
-                    >GET EARLY ACCESS</a
+                <a href={heroCtaUrl} class="btn btn--primary"
+                    >{heroCtaText}</a
                 >
-                <a href="#how-it-works" class="btns--secondary">
+                <a href={heroSecondaryCtaUrl} class="btns--secondary">
                     <span class="btn--secondary btn--secondary-unhovered">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +50,7 @@ if (videoUrl.includes("cloudinary.com")) {
                                 d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
                             ></path>
                         </svg>
-                        How It Works?
+                        {heroSecondaryCtaText}
                     </span>
                     <span
                         class="btn--secondary btn--secondary-hovered"
@@ -60,7 +64,7 @@ if (videoUrl.includes("cloudinary.com")) {
                                 d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
                             ></path>
                         </svg>
-                        How It Works?
+                        {heroSecondaryCtaText}
                     </span>
                 </a>
             </div>

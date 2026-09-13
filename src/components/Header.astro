@@ -1,8 +1,11 @@
 ---
-import { getSiteSettings } from "../lib/sanity/api";
+import { getSiteSettings, getWhyJoin } from "../lib/sanity/api";
 
 const settings = await getSiteSettings();
+const whyJoin = await getWhyJoin();
 const loginUrl = settings.appLoginUrl || "https://app.contractorspro.us/";
+const ctaText = settings.heroCtaText || "Get Early Access";
+const ctaUrl = settings.heroCtaUrl || "#contact";
 ---
 
 <header id="header" class="header">
@@ -26,18 +29,22 @@ const loginUrl = settings.appLoginUrl || "https://app.contractorspro.us/";
                 <li class="nav-item">
                     <a href="#projects" class="nav-link">Projects</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">Why Join</a>
-                </li>
+                {!whyJoin?.hideSection && (
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">Why Join</a>
+                    </li>
+                )}
                 <li class="nav-item">
                     <a href="#how-it-works" class="nav-link">How it Works</a>
                 </li>
                 <li class="nav-item">
                     <a href="#faq" class="nav-link">FAQ</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
+                {!settings?.hideContactSection && (
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                )}
             </ul>
 
             <div class="mobile-actions">
@@ -53,15 +60,15 @@ const loginUrl = settings.appLoginUrl || "https://app.contractorspro.us/";
                     </svg>
                     <span>Log In</span>
                 </a>
-                <a href="#contact" class="nav-link btns--secondary mobile-cta">
+                <a href={ctaUrl} class="nav-link btns--secondary mobile-cta">
                     <span class="btn--secondary btn--secondary-unhovered"
-                        >Get Early Access</span
+                        >{ctaText}</span
                     >
                     <span
                         class="btn--secondary btn--secondary-hovered"
                         aria-hidden="true"
                     >
-                        Get Early Access
+                        {ctaText}
                     </span>
                 </a>
             </div>
@@ -83,15 +90,15 @@ const loginUrl = settings.appLoginUrl || "https://app.contractorspro.us/";
             </a>
 
             <!-- Desktop CTA -->
-            <a href="#contact" class="btns--secondary desktop-cta">
+            <a href={ctaUrl} class="btns--secondary desktop-cta">
                 <span class="btn--secondary btn--secondary-unhovered"
-                    >Get Early Access</span
+                    >{ctaText}</span
                 >
                 <span
                     class="btn--secondary btn--secondary-hovered"
                     aria-hidden="true"
                 >
-                    Get Early Access
+                    {ctaText}
                 </span>
             </a>
 

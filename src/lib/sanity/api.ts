@@ -1,7 +1,7 @@
 import { sanityClient, isSanityConfigured, urlForImage } from './client';
-import { projectsQuery, testimonialsQuery, faqQuery, siteSettingsQuery, howItWorksQuery } from './queries';
-import { defaultProjects, defaultTestimonials, defaultFAQItems, defaultSiteSettings, defaultHowItWorksSteps } from './defaults';
-import type { SanityProject, SanityTestimonial, SanityFAQItem, SanitySiteSettings, SanityHowItWorksStep } from './types';
+import { projectsQuery, testimonialsQuery, faqQuery, siteSettingsQuery, howItWorksQuery, whyJoinQuery } from './queries';
+import { defaultProjects, defaultTestimonials, defaultFAQItems, defaultSiteSettings, defaultHowItWorksSteps, defaultWhyJoin } from './defaults';
+import type { SanityProject, SanityTestimonial, SanityFAQItem, SanitySiteSettings, SanityHowItWorksStep, SanityWhyJoin } from './types';
 
 
 export async function getProjects(): Promise<SanityProject[]> {
@@ -101,6 +101,29 @@ export async function getHowItWorksSteps(): Promise<SanityHowItWorksStep[]> {
   }
 }
 
+export async function getWhyJoin(): Promise<SanityWhyJoin> {
+  if (!isSanityConfigured || !sanityClient) {
+    return defaultWhyJoin;
+  }
+
+  try {
+    const data = await sanityClient.fetch<SanityWhyJoin>(whyJoinQuery);
+    if (data) {
+      const imgUrl = data.image ? urlForImage(data.image)?.url() : null;
+      return {
+        ...defaultWhyJoin,
+        ...data,
+        imageUrl: imgUrl || data.imageUrl,
+        items: data.items && data.items.length > 0 ? data.items : defaultWhyJoin.items,
+      };
+    }
+    return defaultWhyJoin;
+  } catch (err) {
+    console.warn('[Sanity] Error fetching Why Join, using local fallback:', err);
+    return defaultWhyJoin;
+  }
+}
+
 export async function getSiteSettings(): Promise<SanitySiteSettings> {
   if (!isSanityConfigured || !sanityClient) {
     return defaultSiteSettings;
@@ -112,6 +135,10 @@ export async function getSiteSettings(): Promise<SanitySiteSettings> {
       return {
         ...defaultSiteSettings,
         ...data,
+        heroCtaText: data.heroCtaText || defaultSiteSettings.heroCtaText,
+        heroCtaUrl: data.heroCtaUrl || defaultSiteSettings.heroCtaUrl,
+        heroSecondaryCtaText: data.heroSecondaryCtaText || defaultSiteSettings.heroSecondaryCtaText,
+        heroSecondaryCtaUrl: data.heroSecondaryCtaUrl || defaultSiteSettings.heroSecondaryCtaUrl,
         heroVideoUrl:
           data.heroVideoFileUrl ||
           data.heroVideoUrl ||

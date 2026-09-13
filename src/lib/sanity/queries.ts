@@ -50,6 +50,21 @@ export const howItWorksQuery = `*[_type == "howItWorksStep"] | order(order asc, 
   order
 }`;
 
+export const whyJoinQuery = `*[_type == "whyJoin"][0] {
+  _id,
+  tag,
+  title,
+  image,
+  "imageUrl": image.asset->url,
+  imageAlt,
+  hideSection,
+  items[] {
+    _key,
+    title,
+    text
+  }
+}`;
+
 export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   siteTitle,
   siteDescription,
@@ -57,15 +72,24 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   heroTitle,
   heroSubtitle,
   heroNotice,
+  heroCtaText,
+  heroCtaUrl,
+  heroSecondaryCtaText,
+  heroSecondaryCtaUrl,
   heroVideoUrl,
   "heroVideoFileUrl": heroVideoFile.asset->url,
   heroVideoPoster,
   howItWorksTag,
   howItWorksTitle,
   appLoginUrl,
-  googleScriptUrl,
+  contactSectionTag,
+  contactSectionTitle,
+  contactSectionSubtitle,
   contactEmail,
-  contactPhone
+  contactPhone,
+  hideContactForm,
+  hideContactSection,
+  googleScriptUrl
 }`;
 
 

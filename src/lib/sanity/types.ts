@@ -50,6 +50,23 @@ export interface SanityHowItWorksStep {
   order?: number;
 }
 
+export interface SanityWhyJoinItem {
+  _key?: string;
+  title: string;
+  text: string;
+}
+
+export interface SanityWhyJoin {
+  _id?: string;
+  tag?: string;
+  title?: string;
+  image?: any;
+  imageUrl?: string;
+  imageAlt?: string;
+  items?: SanityWhyJoinItem[];
+  hideSection?: boolean;
+}
+
 export interface SanitySiteSettings {
   siteTitle?: string;
   siteDescription?: string;
@@ -57,6 +74,10 @@ export interface SanitySiteSettings {
   heroTitle?: string;
   heroSubtitle?: string;
   heroNotice?: string;
+  heroCtaText?: string;
+  heroCtaUrl?: string;
+  heroSecondaryCtaText?: string;
+  heroSecondaryCtaUrl?: string;
   heroVideoUrl?: string;
   heroVideoFile?: any;
   heroVideoFileUrl?: string;
@@ -64,9 +85,14 @@ export interface SanitySiteSettings {
   howItWorksTag?: string;
   howItWorksTitle?: string;
   appLoginUrl?: string;
-  googleScriptUrl?: string;
+  contactSectionTag?: string;
+  contactSectionTitle?: string;
+  contactSectionSubtitle?: string;
   contactEmail?: string;
   contactPhone?: string;
+  hideContactForm?: boolean;
+  hideContactSection?: boolean;
+  googleScriptUrl?: string;
 }
 
 

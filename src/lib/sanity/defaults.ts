@@ -7,7 +7,8 @@ import emmaImage from '../../assets/images/emma.jpg';
 import consultationImage from '../../assets/images/consultation.jpg';
 import designImage from '../../assets/images/design.jpg';
 import transformImage from '../../assets/images/transform.jpg';
-import type { SanityProject, SanityTestimonial, SanityFAQItem, SanityHowItWorksStep, SanitySiteSettings } from './types';
+import twoWomenSittingImage from '../../assets/images/two-women-sitting.png';
+import type { SanityProject, SanityTestimonial, SanityFAQItem, SanityHowItWorksStep, SanitySiteSettings, SanityWhyJoin } from './types';
 
 
 export const defaultProjects: SanityProject[] = [
@@ -160,6 +161,24 @@ export const defaultHowItWorksSteps: SanityHowItWorksStep[] = [
   },
 ];
 
+export const defaultWhyJoin: SanityWhyJoin = {
+  tag: 'WHY CONTRACTORS JOIN',
+  title: 'Finding consistent, quality projects is still one of the hardest parts.',
+  image: twoWomenSittingImage,
+  imageAlt: 'Contractors discussing construction project blueprint.',
+  hideSection: false,
+  items: [
+    {
+      title: 'Our goal is simple:',
+      text: 'Help subcontractors find new construction opportunities faster. Spend less time searching for leads and more time pursuing projects that fit your crews.',
+    },
+    {
+      title: 'Direct builder demand you can act on',
+      text: 'Most contractors depend on word-of-mouth referrals, cold outreach, existing relationships, or expensive lead generation. ContractorPro connects you directly with builders and project owners seeking reliable roofing, electrical, HVAC, concrete, drywall, framing, painting, plumbing, carpentry, flooring, and more.',
+    },
+  ],
+};
+
 export const defaultSiteSettings: SanitySiteSettings = {
   siteTitle: 'ContractorPro US',
   siteDescription: 'Connecting construction projects with qualified subcontractors.',
@@ -168,14 +187,23 @@ export const defaultSiteSettings: SanitySiteSettings = {
   heroSubtitle:
     'Get early access to residential and commercial construction opportunities from builders seeking reliable roofing, electrical, HVAC, concrete, drywall, framing, painting, carpentry, flooring, and more.',
   heroNotice: 'Founding contractors get free access while we launch the beta.',
+  heroCtaText: 'GET EARLY ACCESS',
+  heroCtaUrl: '#contact',
+  heroSecondaryCtaText: 'How It Works?',
+  heroSecondaryCtaUrl: '#how-it-works',
   heroVideoUrl: 'https://res.cloudinary.com/dellp9a4z/video/upload/f_mp4,q_auto,w_1080/v1774623099/ik-video_esc1gl.mp4',
   heroVideoPoster: 'hero-video-poster.webp',
   howItWorksTag: 'HOW IT WORKS',
   howItWorksTitle: 'A simple path from joining the network to connecting with builders.',
   appLoginUrl: 'https://app.contractorspro.us/',
-  googleScriptUrl: '',
+  contactSectionTag: 'FOUNDING ACCESS',
+  contactSectionTitle: 'Become a Founding Contractor.',
+  contactSectionSubtitle: "We're onboarding a limited group of subcontractors before public launch. Tell us about your services, crew capacity, and the compliance details builders typically need.",
   contactEmail: 'contact@contractorspro.us',
   contactPhone: '(888) 555-0199',
+  hideContactForm: false,
+  hideContactSection: false,
+  googleScriptUrl: '',
 };
 
 
