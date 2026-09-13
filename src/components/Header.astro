@@ -6,6 +6,7 @@ const whyJoin = await getWhyJoin();
 const loginUrl = settings.appLoginUrl || "https://app.contractorspro.us/";
 const ctaText = settings.heroCtaText || "Get Early Access";
 const ctaUrl = settings.heroCtaUrl || "#contact";
+const showHeaderCta = !settings?.hideContactForm && !settings?.hideContactSection && !settings?.hideHeaderCta;
 ---
 
 <header id="header" class="header">
@@ -50,17 +51,52 @@ const ctaUrl = settings.heroCtaUrl || "#contact";
             <div class="mobile-actions">
                 <a
                     href={loginUrl}
-                    class="btn-login mobile-drawer-login"
+                    class="nav-link btns--secondary mobile-drawer-login"
                     aria-label="Log in to ContractorPro App"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="login-icon">
-                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                        <polyline points="10 17 15 12 10 7" />
-                        <line x1="15" y1="12" x2="3" y2="12" />
-                    </svg>
-                    <span>Log In</span>
+                    <span class="btn--secondary btn--secondary-unhovered">Log In</span>
+                    <span
+                        class="btn--secondary btn--secondary-hovered"
+                        aria-hidden="true"
+                    >
+                        Log In
+                    </span>
                 </a>
-                <a href={ctaUrl} class="nav-link btns--secondary mobile-cta">
+                {showHeaderCta && (
+                    <a href={ctaUrl} class="nav-link btns--secondary mobile-cta">
+                        <span class="btn--secondary btn--secondary-unhovered"
+                            >{ctaText}</span
+                        >
+                        <span
+                            class="btn--secondary btn--secondary-hovered"
+                            aria-hidden="true"
+                        >
+                            {ctaText}
+                        </span>
+                    </a>
+                )}
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <!-- Desktop / Mobile Top Login Button -->
+            <a
+                href={loginUrl}
+                class="btns--secondary desktop-login"
+                aria-label="Log in to ContractorPro App"
+            >
+                <span class="btn--secondary btn--secondary-unhovered">Log In</span>
+                <span
+                    class="btn--secondary btn--secondary-hovered"
+                    aria-hidden="true"
+                >
+                    Log In
+                </span>
+            </a>
+
+            <!-- Desktop CTA -->
+            {showHeaderCta && (
+                <a href={ctaUrl} class="btns--secondary desktop-cta">
                     <span class="btn--secondary btn--secondary-unhovered"
                         >{ctaText}</span
                     >
@@ -71,36 +107,7 @@ const ctaUrl = settings.heroCtaUrl || "#contact";
                         {ctaText}
                     </span>
                 </a>
-            </div>
-        </div>
-
-        <div class="header-actions">
-            <!-- Desktop / Mobile Top Login Button -->
-            <a
-                href={loginUrl}
-                class="btn-login"
-                aria-label="Log in to ContractorPro App"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="login-icon">
-                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                    <polyline points="10 17 15 12 10 7" />
-                    <line x1="15" y1="12" x2="3" y2="12" />
-                </svg>
-                <span>Log In</span>
-            </a>
-
-            <!-- Desktop CTA -->
-            <a href={ctaUrl} class="btns--secondary desktop-cta">
-                <span class="btn--secondary btn--secondary-unhovered"
-                    >{ctaText}</span
-                >
-                <span
-                    class="btn--secondary btn--secondary-hovered"
-                    aria-hidden="true"
-                >
-                    {ctaText}
-                </span>
-            </a>
+            )}
 
             <button
                 class="hamburger"
@@ -193,38 +200,10 @@ const ctaUrl = settings.heroCtaUrl || "#contact";
         gap: var(--px-20);
     }
 
-    .btn-login {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--px-8);
-        padding: 0.45rem 1.1rem;
-        font-size: var(--text-sm);
-        font-weight: 500;
-        color: var(--color-text-dark);
-        border: 1px solid var(--color-border);
-        border-radius: 9999px;
-        background: transparent;
-        text-decoration: none;
-        transition: all var(--transition-short);
-        white-space: nowrap;
-    }
-
-    .btn-login:hover {
-        background: var(--color-primary);
-        color: var(--color-white);
-        border-color: var(--color-primary);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-sm);
-    }
-
-    .btn-login .login-icon {
-        width: 0.95rem;
-        height: 0.95rem;
-        flex-shrink: 0;
-    }
-
+    .desktop-login,
     .desktop-cta {
         display: inline-block;
+        font-size: var(--text-base);
     }
 
     .mobile-cta {
@@ -291,12 +270,11 @@ const ctaUrl = settings.heroCtaUrl || "#contact";
         }
 
         .header-actions {
-            gap: var(--px-12);
+            gap: var(--px-16);
         }
 
-        .header-actions .btn-login {
-            padding: 0.35rem 0.85rem;
-            font-size: var(--text-xs);
+        .desktop-login {
+            font-size: var(--text-sm);
         }
 
         .desktop-cta {
@@ -310,14 +288,7 @@ const ctaUrl = settings.heroCtaUrl || "#contact";
             width: 100%;
         }
 
-        .mobile-drawer-login {
-            display: inline-flex;
-            justify-content: center;
-            width: 100%;
-            padding: 0.75rem 1.25rem;
-            font-size: var(--text-base);
-        }
-
+        .mobile-drawer-login,
         .mobile-cta {
             display: inline-block;
         }

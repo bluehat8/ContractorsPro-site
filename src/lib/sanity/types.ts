@@ -91,6 +91,7 @@ export interface SanitySiteSettings {
   contactEmail?: string;
   contactPhone?: string;
   hideContactForm?: boolean;
+  hideHeaderCta?: boolean;
   hideContactSection?: boolean;
   googleScriptUrl?: string;
 }

@@ -202,6 +202,7 @@ export const defaultSiteSettings: SanitySiteSettings = {
   contactEmail: 'contact@contractorspro.us',
   contactPhone: '(888) 555-0199',
   hideContactForm: false,
+  hideHeaderCta: false,
   hideContactSection: false,
   googleScriptUrl: '',
 };

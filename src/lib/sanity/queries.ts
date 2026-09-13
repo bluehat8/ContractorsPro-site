@@ -88,6 +88,7 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
   contactEmail,
   contactPhone,
   hideContactForm,
+  hideHeaderCta,
   hideContactSection,
   googleScriptUrl
 }`;
